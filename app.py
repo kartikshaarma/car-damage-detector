@@ -37,12 +37,11 @@ def main():
     """
     st.set_page_config(
         page_title="Car Damage Detection with YOLOv8",
-        page_icon="🚗",
         layout="wide",
         initial_sidebar_state="collapsed",
     )
 
-    st.title("🚗 Car Damage Detection with YOLOv8")
+    st.title("Car Damage Detection with YOLOv8")
     st.write("Upload an image of a car to detect potential damages.")
 
     # --- Model Loading ---

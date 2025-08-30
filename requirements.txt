@@ -3,3 +3,6 @@ ultralytics
 torch
 torchvision
 Pillow
+
+Use the headless version of OpenCV for server environments
+opencv-python-headless

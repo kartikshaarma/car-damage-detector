@@ -5,21 +5,19 @@ import glob
 import os
 from pathlib import Path
 
-def find_latest_model_path():
+def find_model_path():
     """
-    Finds the path to the 'best.pt' file from the latest training run,
-    looking in the project's root directory.
+    Finds the path to the 'best.pt' file within the 'runs' directory.
+    This is made robust for deployment environments.
     """
     try:
-        # Search for the 'runs' directory in the current working directory.
-        # This is more robust for deployment environments like Streamlit Cloud.
-        list_of_dirs = glob.glob('runs/detect/yolov8s_carsdd_fine_tuned*')
-        if not list_of_dirs:
+        # Search recursively for 'best.pt' inside the 'runs' directory
+        # This is more reliable than guessing the exact training folder name.
+        model_files = list(Path("runs").rglob("best.pt"))
+        if not model_files:
             return None
-        # Get the latest directory based on name/creation time
-        latest_dir = max(list_of_dirs, key=os.path.getctime)
-        model_path = Path(latest_dir) / 'weights' / 'best.pt'
-        return model_path
+        # If multiple are found (unlikely), return the first one.
+        return model_files[0]
     except Exception:
         return None
 
@@ -30,16 +28,15 @@ def main():
     """
     st.set_page_config(
         page_title="Car Damage Detection with YOLOv8",
-        page_icon="🚗",
         layout="wide",
         initial_sidebar_state="collapsed",
     )
 
-    st.title("🚗 Car Damage Detection with YOLOv8")
+    st.title("Car Damage Detection with YOLOv8")
     st.write("Upload an image of a car to detect potential damages.")
 
     # --- Model Loading ---
-    model_path = find_latest_model_path()
+    model_path = find_model_path()
 
     if model_path is None or not model_path.exists():
         st.error("Error: Could not find a trained model ('best.pt').")

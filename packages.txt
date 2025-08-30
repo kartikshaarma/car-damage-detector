@@ -1,2 +1,1 @@
-Required by OpenCV for image processing on Streamlit Cloud
 libgl1-mesa-glx

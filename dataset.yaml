@@ -1,0 +1,6 @@
+path: ./CarsDD
+train: train/images
+val: train/images
+
+nc: 2
+names: ['car', 'damage']

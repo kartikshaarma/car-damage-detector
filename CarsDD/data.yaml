@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 6
+names: ['crack', 'dent', 'glass shatter', 'lamp broken', 'scratch', 'tire flat']
+
+roboflow:
+  workspace: dr-ulglr
+  project: carsdd
+  version: 3
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/dr-ulglr/carsdd/dataset/3

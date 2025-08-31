@@ -6,26 +6,19 @@ import os
 from pathlib import Path
 
 def find_model_path():
-    """
-    Finds the path to the 'best.pt' file within the 'runs' directory.
-    This is made robust for deployment environments.
-    """
+
     try:
-        # Search recursively for 'best.pt' inside the 'runs' directory
-        # This is more reliable than guessing the exact training folder name.
+       
         model_files = list(Path("runs").rglob("best.pt"))
         if not model_files:
             return None
-        # If multiple are found (unlikely), return the first one.
+        
         return model_files[0]
     except Exception:
         return None
 
 def main():
-    """
-    Main function to run the Streamlit application.
-    Allows users to upload an image and view YOLOv8 inference results.
-    """
+    
     st.set_page_config(
         page_title="Car Damage Detection with YOLOv8",
         layout="wide",
@@ -35,7 +28,7 @@ def main():
     st.title("Car Damage Detection with YOLOv8")
     st.write("Upload an image of a car to detect potential damages.")
 
-    # --- Model Loading ---
+    #  Model Loading
     model_path = find_model_path()
 
     if model_path is None or not model_path.exists():
@@ -51,7 +44,7 @@ def main():
         st.error(f"Error loading model: {e}")
         return
 
-    # --- Image Upload ---
+    # Image Upload
     uploaded_file = st.file_uploader(
         "Choose an image...", type=["jpg", "jpeg", "png"]
     )
@@ -63,7 +56,7 @@ def main():
             st.markdown("---")
             st.subheader("Detection Results")
 
-            # --- Run Inference ---
+            #  Run Inference 
             results = model([image])
 
             # Process and display results

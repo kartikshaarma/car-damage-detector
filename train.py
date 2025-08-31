@@ -1,9 +1,6 @@
 from ultralytics import YOLO
 
 def main():
-    """
-    This script trains a YOLOv8 model on a custom dataset.
-    """
     model = YOLO('yolov8s.pt')
 
     print("Starting model training...")
